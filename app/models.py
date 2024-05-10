@@ -28,41 +28,22 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
-    
+
 class Item(db.Model):
     id: so.Mapped[int] = db.Column(db.Integer, primary_key=True)
     sku: so.Mapped[str] = db.Column(db.String(64), index=True, unique=True)
     name: so.Mapped[str] = db.Column(db.String(255))
     description: so.Mapped[str] = db.Column(db.String(255))
-    financeID: so.Mapped[int] = db.Column(db.Integer, db.ForeignKey('finance.id'))
-    quantityID: so.Mapped[int] = db.Column(db.Integer, db.ForeignKey('quantity.id'))
-    manufacturerID: so.Mapped[int] = db.Column(db.Integer, db.ForeignKey('manufacturer.id'))
+    cost: so.Mapped[float] = db.Column(db.Float)
+    price: so.Mapped[float] = db.Column(db.Float)
+    quantityInStock: so.Mapped[int] = db.Column(db.Integer)
+    quantityOnOrder: so.Mapped[int] = db.Column(db.Integer)
+    quantityReserved: so.Mapped[int] = db.Column(db.Integer)
+    quantityInTruck: so.Mapped[int] = db.Column(db.Integer)
+    manufacturer: so.Mapped[str] = db.Column(db.String(255))
+    category: so.Mapped[str] = db.Column(db.String(255))
 
     def __repr__(self):
         return '<Item {}>'.format(self.name)
-
-class Finance(db.Model):
-    id: so.Mapped[int] = db.Column(db.Integer, primary_key=True)
-    cost: so.Mapped[float] = db.Column(db.Float)
-    price: so.Mapped[float] = db.Column(db.Float)
-
-    def __repr__(self):
-        return '<Finance {}>'.format(self.cost)
-    
-class Quantity(db.Model):
-    id: so.Mapped[int] = db.Column(db.Integer, primary_key=True)
-    inStock: so.Mapped[int] = db.Column(db.Integer)
-    ordered: so.Mapped[int] = db.Column(db.Integer)
-    minimum: so.Mapped[int] = db.Column(db.Integer)
-    reserved: so.Mapped[int] = db.Column(db.Integer)
-
-class Manufacturer(db.Model):
-    id: so.Mapped[int] = db.Column(db.Integer, primary_key=True)
-    name: so.Mapped[str] = db.Column(db.String(255))
-    website: so.Mapped[str] = db.Column(db.String(255))
-    description: so.Mapped[str] = db.Column(db.String(255))
-
-    def __repr__(self):
-        return '<Manufacturer {}>'.format(self.name)
     
 

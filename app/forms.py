@@ -35,4 +35,16 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-    
+class NewItemForm(FlaskForm):
+    sku = StringField('SKU', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    cost = StringField('Cost', validators=[DataRequired()])
+    price = StringField('Price', validators=[DataRequired()])
+    quantityInStock = StringField('Quantity In Stock', validators=[DataRequired()])
+    quantityOnOrder = StringField('Quantity On Order', validators=[DataRequired()])
+    quantityReserved = StringField('Quantity Reserved', validators=[DataRequired()])
+    quantityInTruck = StringField('Quantity In Truck', validators=[DataRequired()])
+    manufacturer = StringField('Manufacturer', validators=[DataRequired()])
+    category = StringField('Category', validators=[DataRequired()])
+    submit = SubmitField('Add Item')
